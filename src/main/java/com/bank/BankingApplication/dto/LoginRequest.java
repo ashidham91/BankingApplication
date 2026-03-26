@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class LoginRequest {
 
-
-
     private Integer id;
     private String username;
     private String password;
