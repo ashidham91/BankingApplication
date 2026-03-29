@@ -5,6 +5,7 @@ import com.bank.BankingApplication.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
     public AuthService(JwtUtil jwtUtil) {
@@ -24,10 +27,13 @@ public class AuthService {
     public  String loginService(String username,String password){
         com.bank.BankingApplication.entity.User log = userRepository.findByUsername(username);
         if(log !=null) {
-
-            if (log.getUsername().equals(username) && log.getPassword().equals(password)) {
-                return jwtUtil.generateToken(username,log.getId(),log.getRole());
-            }
+            String encoded =log.getPassword();
+            boolean isMatch = passwordEncoder.matches(password,encoded);
+           if(isMatch) {
+               if (log.getUsername().equals(username)) {
+                   return jwtUtil.generateToken(username, log.getId(), log.getRole());
+               }
+           }
         }
         throw new RuntimeException("Invalid credentials");
 

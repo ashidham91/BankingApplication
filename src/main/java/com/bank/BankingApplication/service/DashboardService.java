@@ -1,12 +1,15 @@
 package com.bank.BankingApplication.service;
 
 import com.bank.BankingApplication.dto.TransferRequest;
+import com.bank.BankingApplication.dto.UserDto;
 import com.bank.BankingApplication.entity.Account;
 import com.bank.BankingApplication.entity.Role;
 import com.bank.BankingApplication.entity.User;
 import com.bank.BankingApplication.repository.TransferRepository;
 import com.bank.BankingApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +24,8 @@ public class DashboardService {
     @Autowired
     TransferRepository transferRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<TransferRequest> userList(Integer userId,String role){
         List<TransferRequest> transferRequestList = new ArrayList<>();
@@ -51,5 +56,21 @@ public class DashboardService {
            }
        }
         return  transferRequestList;
+    }
+
+
+    public UserDto saveUser(UserDto userDto){
+
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        //user.setId(userDto.getId());
+        // 🔐 Encrypt password
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        user.setPassword(encodedPassword);
+        user.setRole(userDto.getRole());
+        userRepository.save(user);
+
+        return userDto;
     }
 }

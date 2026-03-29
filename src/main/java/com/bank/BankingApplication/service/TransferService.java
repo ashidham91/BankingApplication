@@ -24,6 +24,12 @@ public class TransferService {
         return transferRequest;
     }
 
+    public Account saveAccount(Account account){
+
+        transferRepository.save(account);
+        return account;
+    }
+
     public  List<Account> getAccountDetails(){
 
         List<Account> acc =transferRepository.findAll();

@@ -1,6 +1,8 @@
 package com.bank.BankingApplication.controller;
 
 import com.bank.BankingApplication.dto.TransferRequest;
+import com.bank.BankingApplication.dto.UserDto;
+import com.bank.BankingApplication.entity.User;
 import com.bank.BankingApplication.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,11 +33,20 @@ public class DashboardController {
     }
 
 
-    @GetMapping("/user/accounts/{userId}/{role}")
+    @GetMapping("/api/accounts/{userId}/{role}")
     public List<TransferRequest> Account(@PathVariable("userId") Integer userId,@PathVariable("role") String role) {
 
         List<TransferRequest> userList =dashboardService.userList(userId,role);
         return userList;
+    }
+
+
+    @PostMapping("/api/user")
+    public UserDto saveUser(@RequestBody UserDto userDto) {
+
+        dashboardService.saveUser(userDto);
+
+        return userDto;
     }
 
 

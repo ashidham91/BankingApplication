@@ -20,7 +20,7 @@ public class TransferController {
     @Autowired
     private TransferService transferService;
 
-    @PostMapping("/user/transfer")
+    @PostMapping("/api/fundTransfer")
     public TransferRequest fundTransfer(@RequestBody TransferRequest transferRequest) {
 
         transferService.fundTransfer(transferRequest);
@@ -28,7 +28,14 @@ public class TransferController {
     }
 
 
-    @GetMapping("/user/account")
+    @PostMapping("/api/account")
+    public Account saveAccount(@RequestBody Account account) {
+
+        transferService.saveAccount(account);
+        return account;
+    }
+
+    @GetMapping("/api/accountDetails")
     public List<Account> getAccountList(){
 
         return transferService.getAccountDetails();

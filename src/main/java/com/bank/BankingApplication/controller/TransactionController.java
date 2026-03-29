@@ -15,14 +15,14 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @PostMapping("/user/transaction")
-    public TransactionResponse login(@RequestBody TransactionResponse transactionResponse) {
+    @PostMapping("/api/transaction")
+    public TransactionResponse saveTrasaction(@RequestBody TransactionResponse transactionResponse) {
         transactionService.saveUserTrasaction(transactionResponse);
 
         return transactionResponse;
     }
 
-    @GetMapping("/user/transactionHistory/{userId}/{role}")
+    @GetMapping("/api/transactionHistory/{userId}/{role}")
     public List<Transaction> getTransactionList(@PathVariable Integer userId,@PathVariable String role){
 
 
