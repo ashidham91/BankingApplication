@@ -4,7 +4,6 @@ import com.bank.BankingApplication.dto.TransferRequest;
 import com.bank.BankingApplication.entity.Account;
 import com.bank.BankingApplication.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

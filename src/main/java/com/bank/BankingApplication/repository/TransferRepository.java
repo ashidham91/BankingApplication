@@ -1,7 +1,6 @@
 package com.bank.BankingApplication.repository;
 
 import com.bank.BankingApplication.entity.Account;
-import com.bank.BankingApplication.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +13,10 @@ public interface TransferRepository extends JpaRepository<Account,Integer> {
 
      @Query("SELECT a FROM Account a WHERE a.account_number = :account_number")
      Account findByAccount(@Param("account_number") Integer account_number);
+     @Query("SELECT a FROM Account a WHERE a.user_id = :user_id ORDER BY a.id DESC")
+     Account findByAccountUserId(@Param("user_id") Integer user_id);
+
+
 
 
      @Modifying

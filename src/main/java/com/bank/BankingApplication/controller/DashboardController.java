@@ -1,21 +1,11 @@
 package com.bank.BankingApplication.controller;
 
-import com.bank.BankingApplication.dto.LoginRequest;
 import com.bank.BankingApplication.dto.TransferRequest;
-import com.bank.BankingApplication.entity.User;
-import com.bank.BankingApplication.repository.UserRepository;
 import com.bank.BankingApplication.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,10 +31,10 @@ public class DashboardController {
     }
 
 
-    @GetMapping("/user/accounts")
-    public List<TransferRequest> Account() {
+    @GetMapping("/user/accounts/{userId}/{role}")
+    public List<TransferRequest> Account(@PathVariable("userId") Integer userId,@PathVariable("role") String role) {
 
-        List<TransferRequest> userList =dashboardService.userList();
+        List<TransferRequest> userList =dashboardService.userList(userId,role);
         return userList;
     }
 

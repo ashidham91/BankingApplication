@@ -27,7 +27,9 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        //.requestMatchers("/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/swagger-ui/**","/swagger-ui.html","/v3/api-docs/**","/webjars/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         // Role-based access
                         //.requestMatchers("/admin/**").hasRole("ADMIN")

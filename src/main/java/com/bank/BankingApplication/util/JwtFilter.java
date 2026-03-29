@@ -30,7 +30,11 @@ public class JwtFilter extends GenericFilter {
             chain.doFilter(request, response);
             return;
         }
-
+        if (req.getRequestURI().contains("swagger") ||
+                req.getRequestURI().contains("api-docs")) {
+            chain.doFilter(request, response);
+            return;
+        }
         String header = req.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {

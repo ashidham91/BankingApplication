@@ -2,24 +2,26 @@ package com.bank.BankingApplication.service;
 
 import com.bank.BankingApplication.dto.TransactionResponse;
 import com.bank.BankingApplication.entity.Account;
+import com.bank.BankingApplication.entity.Role;
 import com.bank.BankingApplication.entity.Transaction;
 import com.bank.BankingApplication.repository.TransactionRepository;
 import com.bank.BankingApplication.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TransactionService {
 
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    TransferRepository transferRepository;
+    private TransferRepository transferRepository;
+
 
     public TransactionResponse saveUserTrasaction(TransactionResponse transactionResponse){
         LocalDateTime now = LocalDateTime.now();        // date + time
@@ -60,9 +62,16 @@ public class TransactionService {
     }
 
 
-    public List<Transaction> getTranscationdetails(){
+    public List<Transaction> getTranscationdetails(Integer userId,String role){
+        List<Transaction> transactionList = new ArrayList<>();
 
-        List<Transaction> transactionList = transactionRepository.findAll();
+        if(role.equals(Role.ROLE_CUSTOMER.getDisplayName())){
+            Account account = transferRepository.findByAccountUserId(userId);
+            transactionList = transactionRepository.getTransactionByUser(account.getAccount_number());
+        }else{
+            transactionList = transactionRepository.findAll();
+        }
+
         return transactionList;
     }
 }

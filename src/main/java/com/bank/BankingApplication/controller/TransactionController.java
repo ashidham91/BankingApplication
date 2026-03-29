@@ -1,7 +1,6 @@
 package com.bank.BankingApplication.controller;
 
 import com.bank.BankingApplication.dto.TransactionResponse;
-import com.bank.BankingApplication.entity.Account;
 import com.bank.BankingApplication.entity.Transaction;
 import com.bank.BankingApplication.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,11 @@ public class TransactionController {
         return transactionResponse;
     }
 
-    @GetMapping("/user/transactionHistory")
-    public List<Transaction> getTransactionList(){
+    @GetMapping("/user/transactionHistory/{userId}/{role}")
+    public List<Transaction> getTransactionList(@PathVariable Integer userId,@PathVariable String role){
 
-        List<Transaction> transactionsDetails = transactionService.getTranscationdetails();
+
+        List<Transaction> transactionsDetails = transactionService.getTranscationdetails(userId,role);
 
         return transactionsDetails;
     }
