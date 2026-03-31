@@ -2,8 +2,9 @@ package com.bank.BankingApplication.controller;
 
 import com.bank.BankingApplication.dto.TransactionResponse;
 import com.bank.BankingApplication.entity.Transaction;
+
 import com.bank.BankingApplication.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +13,15 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
-    @Autowired
-    TransactionService transactionService;
 
+    private final TransactionService transactionService;
+
+    // Constructor injection
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
+
+    /*Creates a new transaction record in the system*/
     @PostMapping("/api/transaction")
     public TransactionResponse saveTrasaction(@RequestBody TransactionResponse transactionResponse) {
         transactionService.saveUserTrasaction(transactionResponse);
@@ -22,13 +29,11 @@ public class TransactionController {
         return transactionResponse;
     }
 
+    /*Retrieves the transaction history for a specific user, filtered by their role*/
     @GetMapping("/api/transactionHistory/{userId}/{role}")
     public List<Transaction> getTransactionList(@PathVariable Integer userId,@PathVariable String role){
 
-
-        List<Transaction> transactionsDetails = transactionService.getTranscationdetails(userId,role);
-
-        return transactionsDetails;
+        return transactionService.getTranscationdetails(userId,role);
     }
 
 }

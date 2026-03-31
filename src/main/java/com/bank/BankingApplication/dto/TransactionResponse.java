@@ -1,13 +1,13 @@
 package com.bank.BankingApplication.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 public class TransactionResponse {
 
     private Integer id;
-    private Integer from_account;
-    private Integer to_account;
+    private String from_account;
+    private String to_account;
     private Double amount;
     private LocalDateTime date;
     private String status;
@@ -20,19 +20,19 @@ public class TransactionResponse {
         this.id = id;
     }
 
-    public Integer getFrom_account() {
+    public String getFrom_account() {
         return from_account;
     }
 
-    public void setFrom_account(Integer from_account) {
+    public void setFrom_account(String from_account) {
         this.from_account = from_account;
     }
 
-    public Integer getTo_account() {
+    public String getTo_account() {
         return to_account;
     }
 
-    public void setTo_account(Integer to_account) {
+    public void setTo_account(String to_account) {
         this.to_account = to_account;
     }
 

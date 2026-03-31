@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "mysecretkeymysecretkeymysecretkey"; // 32+ chars
+    private static final String SECRET = "mysecretkeymysecretkeymysecretkey"; // 32+ chars
 
     private SecretKey getKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());

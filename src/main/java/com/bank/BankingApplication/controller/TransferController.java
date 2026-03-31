@@ -1,14 +1,7 @@
 package com.bank.BankingApplication.controller;
-
-
-import com.bank.BankingApplication.dto.TransferRequest;
 import com.bank.BankingApplication.entity.Account;
-
 import com.bank.BankingApplication.service.TransferService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController
@@ -17,17 +10,15 @@ import java.util.List;
 public class TransferController {
 
 
-    @Autowired
-    private TransferService transferService;
+    private final TransferService transferService;
 
-    @PostMapping("/api/fundTransfer")
-    public TransferRequest fundTransfer(@RequestBody TransferRequest transferRequest) {
-
-        transferService.fundTransfer(transferRequest);
-        return transferRequest;
+    // Constructor injection
+    public TransferController(TransferService transferService) {
+        this.transferService = transferService;
     }
 
 
+    /*Creates a new account in the system*/
     @PostMapping("/api/account")
     public Account saveAccount(@RequestBody Account account) {
 
@@ -35,6 +26,7 @@ public class TransferController {
         return account;
     }
 
+    /*Retrieves a list of all accounts in the system. This endpoint returns account details for all users*/
     @GetMapping("/api/accountDetails")
     public List<Account> getAccountList(){
 

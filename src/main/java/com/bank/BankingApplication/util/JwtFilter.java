@@ -11,9 +11,10 @@ import java.io.IOException;
 
 public class JwtFilter extends GenericFilter {
 
-    private final JwtUtil jwtUtil;
-    private final AuthService userService;
+    private transient JwtUtil jwtUtil;
+    private transient AuthService userService;
 
+    // Constructor injection
     public JwtFilter(JwtUtil jwtUtil, AuthService userService) {
         this.jwtUtil = jwtUtil;
         this.userService = userService;

@@ -19,6 +19,6 @@ public interface TransactionRepository extends JpaRepository<Transaction,Integer
     void updateStatus(@Param("id") Integer id, @Param("status") String status);
 
     @Query("Select  t from Transaction t WHERE t.from_account = :from_account")
-    List<Transaction> getTransactionByUser(@Param("from_account") Integer from_account);
+    List<Transaction> getTransactionByUser(@Param("from_account") String from_account);
 
 }

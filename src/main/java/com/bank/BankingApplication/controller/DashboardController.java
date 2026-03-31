@@ -2,10 +2,7 @@ package com.bank.BankingApplication.controller;
 
 import com.bank.BankingApplication.dto.TransferRequest;
 import com.bank.BankingApplication.dto.UserDto;
-import com.bank.BankingApplication.entity.User;
 import com.bank.BankingApplication.service.DashboardService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,32 +12,22 @@ import java.util.List;
 
 public class DashboardController {
 
-    @Autowired
-    DashboardService dashboardService;
 
+    private final DashboardService dashboardService;
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/test")
-    public String testData(){
-
-        return "testing successfully";
+    // Constructor injection
+    public DashboardController(DashboardService dashboardService) {
+        this.dashboardService = dashboardService;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/profile")
-    public String profile() {
-        return "Logged in user";
-    }
-
-
+    /*Retrieves a list of transfer requests for a specific user filtered by their role. The endpoint uses the userId and role path variables to fetch relevant data from the system.*/
     @GetMapping("/api/accounts/{userId}/{role}")
     public List<TransferRequest> Account(@PathVariable("userId") Integer userId,@PathVariable("role") String role) {
 
-        List<TransferRequest> userList =dashboardService.userList(userId,role);
-        return userList;
+        return dashboardService.userList(userId, role);
     }
 
-
+    /*Creates a new user in the system*/
     @PostMapping("/api/user")
     public UserDto saveUser(@RequestBody UserDto userDto) {
 

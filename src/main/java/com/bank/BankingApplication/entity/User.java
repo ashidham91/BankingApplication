@@ -1,7 +1,7 @@
 package com.bank.BankingApplication.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "users")

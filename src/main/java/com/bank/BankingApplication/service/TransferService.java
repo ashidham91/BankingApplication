@@ -14,7 +14,7 @@ public class TransferService {
     @Autowired
     TransferRepository transferRepository;
 
-    public TransferRequest fundTransfer(TransferRequest transferRequest){
+    /*public TransferRequest fundTransfer(TransferRequest transferRequest){
 
         Account account = new Account();
         transferRequest.setAccount_number(account.getAccount_number());
@@ -22,7 +22,7 @@ public class TransferService {
         transferRequest.setUser_id(account.getUser_id());
         transferRepository.save(account);
         return transferRequest;
-    }
+    }*/
 
     public Account saveAccount(Account account){
 

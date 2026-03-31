@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TransferRepository extends JpaRepository<Account,Integer> {
 
      @Query("SELECT a FROM Account a WHERE a.account_number = :account_number")
-     Account findByAccount(@Param("account_number") Integer account_number);
+     Account findByAccount(@Param("account_number") String account_number);
      @Query("SELECT a FROM Account a WHERE a.user_id = :user_id ORDER BY a.id DESC")
      Account findByAccountUserId(@Param("user_id") Integer user_id);
 

@@ -7,8 +7,8 @@ import com.bank.BankingApplication.entity.Role;
 import com.bank.BankingApplication.entity.User;
 import com.bank.BankingApplication.repository.TransferRepository;
 import com.bank.BankingApplication.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +18,29 @@ import java.util.List;
 @Service
 public class DashboardService {
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    TransferRepository transferRepository;
+    private final UserRepository userRepository;
+    private final TransferRepository transferRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public DashboardService(UserRepository userRepository, TransferRepository transferRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.transferRepository = transferRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
+
 
     public List<TransferRequest> userList(Integer userId,String role){
         List<TransferRequest> transferRequestList = new ArrayList<>();
         User user = userRepository.getUserById(userId);
-       if(user.getRole().equals(Role.ROLE_CUSTOMER.getDisplayName())) {
+       if(role.equals(Role.ROLE_CUSTOMER.getDisplayName())) {
            Account userAccount = transferRepository.findByAccountUserId(userId);
            TransferRequest transferRequest = new TransferRequest();
            transferRequest.setUser_id(user.getId());
            transferRequest.setBalance(userAccount.getBalance());
-           //String username = userRepository.getUserName(account.getUser_id());
-           //transferRequest.setUser_id(account.getUser_id());
            transferRequest.setUserName(user.getUsername());
            transferRequest.setAccount_number(userAccount.getAccount_number());
            transferRequestList.add(transferRequest);
@@ -64,7 +68,6 @@ public class DashboardService {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        //user.setId(userDto.getId());
         // 🔐 Encrypt password
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         user.setPassword(encodedPassword);

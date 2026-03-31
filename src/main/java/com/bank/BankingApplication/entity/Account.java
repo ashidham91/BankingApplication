@@ -1,7 +1,7 @@
 package com.bank.BankingApplication.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "accounts")
@@ -9,7 +9,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer account_number;
+    private String account_number;
     private double balance;
     private Integer user_id;
 
@@ -21,11 +21,11 @@ public class Account {
         this.id = id;
     }
 
-    public Integer getAccount_number() {
+    public String getAccount_number() {
         return account_number;
     }
 
-    public void setAccount_number(Integer account_number) {
+    public void setAccount_number(String account_number) {
         this.account_number = account_number;
     }
 
