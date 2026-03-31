@@ -1,13 +1,20 @@
 package com.bank.BankingApplication.dto;
 
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class UserDto {
 
 
     private Integer id;
+    @NotBlank(message = "Name is required")
     private String username;
     private String password;
+    @Email(message = "Invalid email format")
     private String email;
+    @Pattern(regexp = "Admin|User", message = "Invalid role")
     private String role;
 
     public Integer getId() {

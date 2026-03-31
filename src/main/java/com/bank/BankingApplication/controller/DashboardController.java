@@ -3,6 +3,7 @@ package com.bank.BankingApplication.controller;
 import com.bank.BankingApplication.dto.TransferRequest;
 import com.bank.BankingApplication.dto.UserDto;
 import com.bank.BankingApplication.service.DashboardService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class DashboardController {
 
     /*Creates a new user in the system*/
     @PostMapping("/api/user")
-    public UserDto saveUser(@RequestBody UserDto userDto) {
+    public UserDto saveUser(@Valid @RequestBody UserDto userDto) {
 
         dashboardService.saveUser(userDto);
 
