@@ -2,6 +2,7 @@ package com.bank.BankingApplication.controller;
 
 import com.bank.BankingApplication.dto.TransferRequest;
 import com.bank.BankingApplication.dto.UserDto;
+import com.bank.BankingApplication.entity.User;
 import com.bank.BankingApplication.service.DashboardService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,11 @@ public class DashboardController {
         return userDto;
     }
 
+    @GetMapping("/api/user")
+    public List<User> getUserList() {
+
+        return dashboardService.getUserList();
+    }
 
 
 }

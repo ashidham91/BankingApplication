@@ -76,4 +76,10 @@ public class DashboardService {
 
         return userDto;
     }
+
+
+    public List<User> getUserList(){
+
+        return userRepository.findAll();
+    }
 }
